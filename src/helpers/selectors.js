@@ -38,3 +38,29 @@ export function getAppointmentsForDay(state, day) {
   const appointments = theDay.appointments.map((id) => state.appointments[id]);
   return appointments;
 }
+export function getInterview(state, interview) {
+  if (!interview) {
+    return null;
+  }
+  const interviewerID = interview.interviewer;
+  const interviewers = state.interviewers;
+
+  return {
+    student: interview.student,
+    interviewer: interviewers[interviewerID],
+  };
+}
+export function getInterviewersForDay(state, day) {
+  if (!state.days) {
+    return [];
+  }
+
+  const theDay = state.days.find((each) => each.name === day);
+  if (!theDay || !theDay.interviewers) {
+    return [];
+  }
+
+  const interviewers = theDay.interviewers.map((id) => state.interviewers[id]);
+
+  return interviewers;
+}
