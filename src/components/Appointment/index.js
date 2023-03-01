@@ -50,7 +50,7 @@ export default function Appointment(props) {
   function onEdit() {
     transition(EDIT);
   }
-  if (props.interview) console.log(props.interview.interviewer);
+
   return (
     <article className="appointment">
       <Header time={props.time} />
