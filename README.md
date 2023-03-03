@@ -21,3 +21,7 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Screen Shots
+
+!["confirmation for deleting and saving"](https://github.com/DanielYuanxk/scheduler/blob/master/docs/confirm-delete.png?raw=true)
