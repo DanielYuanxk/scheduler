@@ -19,9 +19,11 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
+  //shows interview when there is interview and add button when there isn't
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+  // save interview information and sets state for student and interviewer
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -33,9 +35,11 @@ export default function Appointment(props) {
       .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true));
   }
+  // confimation message and options
   function confirmDelete() {
     transition(CONFIRM);
   }
+  // deleting message
   function deleteInterview() {
     transition(DELETING, true);
     props
@@ -43,10 +47,11 @@ export default function Appointment(props) {
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
   }
-
+// goes back to previous 'mode' when cancled 
   function cancelDelete() {
     back();
   }
+  // goes to edit page
   function onEdit() {
     transition(EDIT);
   }

@@ -2,14 +2,17 @@ import axios from "axios";
 
 import { useState, useEffect } from "react";
 export default function useApplicationData() {
+ //set state as an object
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {},
     interviewers: {},
   });
+  // set current day
   const setDay = (day) => setState({ ...state, day });
+  // check how many open spots are left based on number of null values
+  // in interview state.interveiw
   const getDayOpenSpots = (state, day) => {
     const appointmentsForDay = day.appointments.map(
       (appointmentID) => state.appointments[appointmentID]
@@ -20,6 +23,7 @@ export default function useApplicationData() {
     return count;
   };
 
+// useEffect here to watch [] so the data from api only loads once
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -36,6 +40,8 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   }, []);
+  // booking an interview put request to server to add appointment to 
+  // database
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -60,6 +66,7 @@ export default function useApplicationData() {
       });
     });
   };
+  // deletes appointment in database
   const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],
